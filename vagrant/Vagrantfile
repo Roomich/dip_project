@@ -14,5 +14,5 @@ Vagrant.configure("2") do |config|
   
   config.vm.provision "docker"
   config.vm.provision "shell", path: "kind-install.sh"
-
+  config.vm.provision "shell", inline: "vagrant plugin install vagrant-hostsupdater"
 end

@@ -30,7 +30,7 @@ docker-machine scp .ssh/jenkins-git "$DOCKER_MACHINE_NAME":"/home/$MACHINE_USER/
 docker-machine ssh "$DOCKER_MACHINE_NAME" "chmod 400 /home/"$MACHINE_USER"/.ssh/jenkins-git"
 
 echo -e $grn"\nCopying PAT for dockerhub..."$rst
-docker-machine scp ./dockerhub/dockerhub_pat "$DOCKER_MACHINE_NAME":"/home/$MACHINE_USER/.docker/dockerhub_pat"
+docker-machine scp .docker/dockerhub_pat "$DOCKER_MACHINE_NAME":"/home/$MACHINE_USER/.docker/dockerhub_pat"
 
 echo -e $grn"\nIP address:"$rst
 docker-machine ip "$DOCKER_MACHINE_NAME"
