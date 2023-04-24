@@ -3,7 +3,7 @@
 export DOCKER_MACHINE_NAME="docker-for-jenkins"
 export SYNC_FOLDER="jenkins"
 export MACHINE_USER="docker"
-export ROOT_DIR="/home/roman/chb_copy"
+export ROOT_DIR="/home/roman/git/dip_project"
 
 red="$( echo -e '\033[0;31m' )" # Red
 grn="$( echo -e '\033[0;32m' )" # Green
