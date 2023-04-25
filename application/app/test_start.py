@@ -1,5 +1,5 @@
 import pytest
-from main import send_welcome
+from app import send_welcome
 from unittest.mock import AsyncMock
 
 
