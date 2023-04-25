@@ -2,10 +2,6 @@ pipeline {
 
     agent none
 
-    tools {
-        dockerTool 'docker'
-    }
-
     options {
         buildDiscarder(logRotator(numToKeepStr: '10'))
         disableConcurrentBuilds()
@@ -36,17 +32,17 @@ pipeline {
         stage('Test') { 
             agent {
                 docker {
-                    image 'roomich13/pytest:v3' 
+                    image 'roomich13/pytest:v4'
                 }
             }
             steps {
                 dir(APP_DIR) {
-                    sh 'pytest test_start.py' 
+                    sh 'pytest test_start.py'
                 }
             }
         }
 
-        stage('Deliver') { 
+        stage('Deliver/Archive artifacts') { 
             agent any
             environment { 
                 VOLUME = '$(pwd):/opt'
