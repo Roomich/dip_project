@@ -32,7 +32,7 @@ pipeline {
         stage('Test') { 
             agent {
                 docker {
-                    image 'roomich13/pytest:v2' 
+                    image 'roomich13/pytest:v3' 
                 }
             }
             steps {
