@@ -56,8 +56,7 @@ pipeline {
                 dir(path: env.BUILD_ID) { 
                     unstash(name: 'compiled-results') 
                     script {
-                        sh "docker run --rm -v ${VOLUME} -i ${IMAGE} pyinstaller --copy-metadata magic_filter -F /src/app.py"
-                        sh "ls"
+                        sh "docker run --rm -v ${VOLUME} -i ${IMAGE} pyinstaller --copy-metadata magic_filter -F /src/app.py && ls /src"
                     }
                 }
             }
