@@ -32,7 +32,7 @@ pipeline {
         stage('Test') { 
             agent {
                 docker {
-                    image 'databricksdocs/pytest:v0.3.1-rc.1' 
+                    image 'roomich13/pytest:latest' 
                 }
             }
             steps {
@@ -42,4 +42,4 @@ pipeline {
             }
         }
     }
-}       
+}
