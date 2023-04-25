@@ -21,3 +21,5 @@ RUN apt-get update \
     containerd.io \
     docker-buildx-plugin \
     docker-compose-plugin
+RUN usermod -aG docker jenkins
+USER jenkins
