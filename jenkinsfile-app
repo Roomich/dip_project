@@ -55,15 +55,18 @@ pipeline {
             steps {
                 dir(path: env.BUILD_ID) { 
                     unstash(name: 'compiled-results') 
-                    sh "docker run --rm -v ${VOLUME} -i ${IMAGE} pyinstaller --copy-metadata magic_filter -F /src/app.py"
+                    script {
+                        sh "docker run --rm -v ${VOLUME} -i ${IMAGE} pyinstaller --copy-metadata magic_filter -F /src/app.py"
+                        sh "ls"
+                    }
                 }
             }
-            post {
-                success {
-                    archiveArtifacts "${env.BUILD_ID}/dist/app"
-                    sh "docker run --rm -v ${VOLUME} ${IMAGE} 'rm -rf /src/'"
-                }
-            }
+            // post {
+            //     success {
+            //         archiveArtifacts "${env.BUILD_ID}/dist/app"
+            //         sh "docker run --rm -v ${VOLUME} ${IMAGE} 'rm -rf /src/'"
+            //     }
+            // }
         }
     }
 }
