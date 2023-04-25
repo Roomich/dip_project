@@ -32,17 +32,12 @@ pipeline {
         stage('Test') { 
             agent {
                 docker {
-                    image 'qnib/pytest' 
+                    image 'python:3.9-alpine' 
                 }
             }
             steps {
                 dir(APP_DIR) {
-                    sh 'py.test --junit-xml py_compile config.py main.py' 
-                }
-            }
-            post {
-                always {
-                    junit 'test-reports/results.xml' 
+                    sh 'pytest test_start.py' 
                 }
             }
         }
