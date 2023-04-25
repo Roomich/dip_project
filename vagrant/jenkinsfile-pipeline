@@ -16,7 +16,7 @@ pipeline {
         KIND_HOME = tool name: 'kind', type: 'com.cloudbees.jenkins.plugins.customtools.CustomTool'
         KUBECTL_HOME = tool name: 'kubectl', type: 'com.cloudbees.jenkins.plugins.customtools.CustomTool'
         PATH = "${KIND_HOME}:${KUBECTL_HOME}:${env.PATH}"
-        DOCKER_HOST = kind
+        DOCKER_HOST = 'kind'
         KIND_FOLDER = 'dip_project/vagrant'
         KUBECONFIG = '/var/jenkins_home/.kube/config'
     }
