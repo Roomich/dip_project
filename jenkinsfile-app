@@ -43,8 +43,11 @@ pipeline {
         }
 
         stage('Deliver') { 
-            agent any
-            // agent { label "jenkins-agent" }
+            agent { 
+                docker {
+                    image 'roomich13/pytest:v3' 
+                }
+            }
             environment { 
                 VOLUME = '$(pwd)/${APP_DIR}:/src'
                 IMAGE = 'roomich13/pytest:v3'
