@@ -49,7 +49,7 @@ pipeline {
         stage('Deliver') { 
             agent { 
                 docker {
-                    image 'roomich13/pytest:v3' 
+                    image 'docker/dind' 
                 }
             }
             environment { 
