@@ -24,7 +24,7 @@ pipeline {
             steps {
                 dir(APP_DIR) {
                     sh 'python -m py_compile config.py main.py' 
-                    stash(name: 'compiled-results', includes: 'sources/*.py*') 
+                    stash(name: 'compiled-results', includes: '*.py*') 
                 }
             }
         }
