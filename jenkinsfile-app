@@ -23,7 +23,7 @@ pipeline {
             }
             steps {
                 dir(APP_DIR) {
-                    sh 'python -m py_compile config.py main.py' 
+                    sh 'python -m py_compile config.py app.py' 
                     stash(name: 'compiled-results', includes: '*.py*') 
                 }
             }
@@ -52,12 +52,12 @@ pipeline {
             steps {
                 dir(path: env.BUILD_ID) { 
                     unstash(name: 'compiled-results') 
-                    sh "docker run --rm -v ${VOLUME} ${IMAGE} 'pyinstaller -F main.py'" 
+                    sh "docker run --rm -v ${VOLUME} ${IMAGE} 'pyinstaller --copy-metadata magic_filter -F app.py'" 
                 }
             }
             post {
                 success {
-                    archiveArtifacts "${env.BUILD_ID}/${APP_DIR}/dist/main.py" 
+                    archiveArtifacts "${env.BUILD_ID}/${APP_DIR}/dist/app.py" 
                     sh "docker run --rm -v ${VOLUME} ${IMAGE} 'rm -rf build dist'"
                 }
             }
