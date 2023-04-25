@@ -1,0 +1,32 @@
+pipeline {
+
+    agent none
+
+    options {
+        buildDiscarder(logRotator(numToKeepStr: '10'))
+        disableConcurrentBuilds()
+        timestamps()
+        ansiColor('xtrem')
+    }
+
+    environment {
+        APP_DIR = 'application/app'
+    }
+
+    stages {
+
+        stage('Build') { 
+            agent {
+                docker {
+                    image 'python:3.9-alpine' 
+                }
+            }
+            steps {
+                DIR(APP_DIR) {
+                    sh 'python -m py_compile config.py main.py' 
+                    stash(name: 'compiled-results', includes: 'sources/*.py*') 
+                }
+            }
+        }
+    }
+}       
