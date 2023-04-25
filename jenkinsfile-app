@@ -49,7 +49,7 @@ pipeline {
         stage('Deliver') { 
             agent any
             environment { 
-                VOLUME = '$(pwd)/${APP_DIR}:/opt'
+                VOLUME = '$(pwd)/${APP_DIR}:/opt/'
                 IMAGE = 'roomich13/pytest:v3'
             }
             steps {
