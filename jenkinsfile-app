@@ -58,6 +58,7 @@ pipeline {
                     script {
                         sh "pwd"
                         sh "ls"
+                        sh "echo ${VOLUME}"
                     }
                     // sh "docker run --rm -v ${VOLUME} -i ${IMAGE} pyinstaller --copy-metadata magic_filter -F ./app.py"                     
                 }
