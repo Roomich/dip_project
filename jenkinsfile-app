@@ -41,5 +41,26 @@ pipeline {
                 }
             }
         }
+
+        stage('Deliver') { 
+            // agent any
+            agent { label "jenkins-agent" }
+            environment { 
+                VOLUME = '$(pwd)/${APP_DIR}:/src'
+                IMAGE = 'roomich13/pytest:v3'
+            }
+            steps {
+                dir(path: env.BUILD_ID) { 
+                    unstash(name: 'compiled-results') 
+                    sh "docker run --rm -v ${VOLUME} ${IMAGE} 'pyinstaller -F main.py'" 
+                }
+            }
+            post {
+                success {
+                    archiveArtifacts "${env.BUILD_ID}/${APP_DIR}/dist/main.py" 
+                    sh "docker run --rm -v ${VOLUME} ${IMAGE} 'rm -rf build dist'"
+                }
+            }
+        }
     }
 }
