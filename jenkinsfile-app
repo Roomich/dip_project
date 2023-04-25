@@ -49,14 +49,14 @@ pipeline {
         stage('Deliver') { 
             agent any
             environment { 
-                VOLUME = '$(pwd)/${APP_DIR}:/app'
+                VOLUME = '$(pwd)/${APP_DIR}:/opt'
                 IMAGE = 'roomich13/pytest:v3'
             }
             steps {
                 dir(path: env.BUILD_ID) { 
                     unstash(name: 'compiled-results') 
                     // sh "docker run --rm -v ${VOLUME} -i ${IMAGE} pyinstaller --copy-metadata magic_filter -F ./app.py"
-                    sh "docker run --rm -v ${VOLUME} -i ${IMAGE} pyinstaller --copy-metadata magic_filter -F /app/app.py"
+                    sh "docker run --rm -v ${VOLUME} -i ${IMAGE} pyinstaller --copy-metadata magic_filter -F /opt/app.py"
                 }
             }
             post {
