@@ -1,6 +1,6 @@
 pipeline {
 
-    agent any
+    agent none
 
     tools {
         dockerTool 'docker'
@@ -27,7 +27,7 @@ pipeline {
             }
             steps {
                 dir(APP_DIR) {
-                    sh 'python -m py_compile config.py app.py' 
+                    sh 'python -m py_compile config.py app.py test_start.py' 
                     stash(name: 'compiled-results', includes: '*.py*') 
                 }
             }
@@ -47,9 +47,10 @@ pipeline {
         }
 
         stage('Deliver') { 
+            agent any
             environment { 
                 VOLUME = '$(pwd)/${APP_DIR}:/src'
-                IMAGE = 'roomich13/pytest:v3'
+                IMAGE = 'cdrx/pyinstaller-linux:python3'
             }
             steps {
                 dir(path: env.BUILD_ID) { 
@@ -59,7 +60,7 @@ pipeline {
             }
             post {
                 success {
-                    archiveArtifacts "${env.BUILD_ID}/${APP_DIR}/dist/app.py" 
+                    archiveArtifacts "${env.BUILD_ID}/${APP_DIR}/dist/app" 
                     sh "docker run --rm -v ${VOLUME} ${IMAGE} 'rm -rf build dist'"
                 }
             }
