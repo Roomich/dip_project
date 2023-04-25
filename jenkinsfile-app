@@ -2,6 +2,10 @@ pipeline {
 
     agent none
 
+    tools {
+        docker 'docker'
+    }
+
     options {
         buildDiscarder(logRotator(numToKeepStr: '10'))
         disableConcurrentBuilds()
