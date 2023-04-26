@@ -51,7 +51,7 @@ pipeline {
         }
         stage('push image to registry') {
             steps {
-                sh "docker push roomich13/chat_bot:latest"
+                sh "docker push roomich13/chat_bot:v1"
             }
         }
         stage('run app on the remote server') {

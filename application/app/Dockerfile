@@ -1,4 +1,4 @@
-FROM python:3.9-alpine
+FROM roomich13/pytest:v4
 RUN mkdir /app
 WORKDIR /app
 COPY ./* .
