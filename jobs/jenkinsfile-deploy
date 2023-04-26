@@ -8,6 +8,11 @@ pipeline {
         timestamps()
         ansiColor('xtrem')
     }
+
+    environment {
+        DOCKERHUB_CREDENTIALS = credentials('dockerhub_pat')
+        APP_DIR="application/"
+    }
     
     stages {
         stage('list cwd') {
@@ -30,17 +35,18 @@ pipeline {
                 }
             }
         }
-        stage('copy files to remote ssh server') {
-            environment {
-                APP_DIR="application/"
-            }
+        stage('build app image') {
             steps {
                 dir(APP_DIR) {
                     script {
                         sh "docker build -t roomich13/chat_bot:latest ."
-                        sh "docker push roomich13/chat_bot:latest"
                     }
                 }
+            }
+        }
+        stage('login to docker registry') {
+            steps {
+                sh "echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin"
             }
         }
     }
