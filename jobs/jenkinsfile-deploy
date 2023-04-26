@@ -1,0 +1,39 @@
+pipeline {
+
+    agent any
+    
+    options {
+        buildDiscarder(logRotator(numToKeepStr: '10'))
+        disableConcurrentBuilds()
+        timestamps()
+        ansiColor('xtrem')
+    }
+    
+    stages {
+        stage('list cwd') {
+            steps {
+                script {
+                    sh "ls"
+                    sh "pwd"
+                }
+            }
+        }
+        stage('copy artifacts') {
+            steps {
+                copyArtifacts filter: '*/dist/*', fingerprintArtifacts: true, projectName: 'build_app', selector: lastWithArtifacts()
+            }
+        }
+        stage('unarchive artifacts') {
+            steps {
+                script {
+                    sh "mv */*/app app"
+                }
+            }
+        }
+        stage('copy files to remote ssh server') {
+            steps {
+                sh "scp app vagrant@app.local:/home/vagrant"
+            }
+        }
+    }
+}
