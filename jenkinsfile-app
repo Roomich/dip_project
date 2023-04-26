@@ -43,8 +43,8 @@ pipeline {
         }
 
         stage('Deliver/Archive artifacts') { 
-            // agent any
-            agent { label "jenkins-server" }
+            agent any
+            // agent { label "jenkins-server" }
             environment { 
                 VOLUME = '$(pwd):/opt'
                 IMAGE = 'roomich13/pytest:v4'
