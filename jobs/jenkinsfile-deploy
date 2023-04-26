@@ -11,7 +11,9 @@ pipeline {
 
     environment {
         DOCKERHUB_CREDENTIALS = credentials('dockerhub_pat')
-        APP_DIR="application/app"
+        APP_DIR = "application/app"
+        REPO = "roomich13/chat_bot"
+        VER = "v1"
     }
     
     stages {
@@ -39,7 +41,7 @@ pipeline {
             steps {
                 dir(APP_DIR) {
                     script {
-                        sh "docker build -t roomich13/chat_bot:latest ."
+                        sh "docker build -t ${REPO}:${VER} ."
                     }
                 }
             }
@@ -51,12 +53,12 @@ pipeline {
         }
         stage('push image to registry') {
             steps {
-                sh "docker push roomich13/chat_bot:v1"
+                sh "docker push ${REPO}:${VER}"
             }
         }
         stage('run app on the remote server') {
             steps {
-                sh "ssh vagrant@app.local docker run -d roomich13/chat_bot:latest"
+                sh "ssh vagrant@app.local docker run -d ${REPO}:${VER}"
             }
         }
     }
