@@ -31,7 +31,7 @@ pipeline {
         stage('unarchive artifacts') {
             steps {
                 script {
-                    sh "mv */*/app application/app"
+                    sh "mv */*/app ${APP_DIR}/app"
                 }
             }
         }
