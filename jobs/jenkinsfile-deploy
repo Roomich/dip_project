@@ -36,7 +36,10 @@ pipeline {
             }
             steps {
                 dir(APP_DIR) {
-                    
+                    script {
+                        sh "docker build -t roomich13/chat_bot:latest ."
+                        sh "docker push roomich13/chat_bot:latest"
+                    }
                 }
             }
         }
