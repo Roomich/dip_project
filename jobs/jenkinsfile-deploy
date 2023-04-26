@@ -26,13 +26,18 @@ pipeline {
         stage('unarchive artifacts') {
             steps {
                 script {
-                    sh "mv */*/app app"
+                    sh "mv */*/app application/app"
                 }
             }
         }
         stage('copy files to remote ssh server') {
+            environment {
+                APP_DIR="application/"
+            }
             steps {
-                sh "scp app vagrant@app.local:/home/vagrant"
+                dir(APP_DIR) {
+                    
+                }
             }
         }
     }
