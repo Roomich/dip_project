@@ -54,6 +54,11 @@ pipeline {
                 sh "docker push roomich13/chat_bot:latest"
             }
         }
+        stage('run app on the remote server') {
+            steps {
+                sh "ssh vagrant@app.local docker run -d roomich13/chat_bot:latest"
+            }
+        }
     }
     post { 
         always {
