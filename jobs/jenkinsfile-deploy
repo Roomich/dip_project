@@ -11,7 +11,7 @@ pipeline {
 
     environment {
         DOCKERHUB_CREDENTIALS = credentials('dockerhub_pat')
-        APP_DIR="app-image"
+        APP_DIR="application/app"
     }
     
     stages {
@@ -31,7 +31,7 @@ pipeline {
         stage('unarchive artifacts') {
             steps {
                 script {
-                    sh "mv */dist/app ${APP_DIR}/app"
+                    sh "mv */dist/app ${APP_DIR}/"
                 }
             }
         }
