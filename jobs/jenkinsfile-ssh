@@ -1,0 +1,22 @@
+pipeline {
+    agent any
+    environment {
+        KEY_DIR="/var/jenkins_home/.ssh"
+    }
+    stages {
+        stage('create keypair') {
+            steps {
+                dir(KEY_DIR) {
+                    sh "if [ ! -f id_rsa ]; then ssh-keygen -f id_rsa -N ''; fi;"
+                }
+            }
+        }
+        stage('echo pub') {
+            steps {
+                dir(KEY_DIR) {
+                    sh "cat id_rsa.pub"
+                }
+            }
+        }
+    }
+}
